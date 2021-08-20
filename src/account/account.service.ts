@@ -7,12 +7,19 @@ import { Repository } from 'typeorm';
 import bcrypt = require('bcrypt')
 import { JwtService } from '@nestjs/jwt';
 import { Config } from 'src/config';
+import { Avatar } from 'src/db/avatar.entity';
+import { Item } from 'src/db/item.entity';
+import { InventoryItem } from 'src/db/inventory-item.entity';
 
 @Injectable()
 export class AccountService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        @InjectRepository(Avatar)
+        private avatarRepository: Repository<Avatar>,
+        @InjectRepository(Item)
+        private itemRepository: Repository<Item>,
         private usersService: UsersService,
         private jwtService: JwtService
     ) {}
@@ -26,9 +33,24 @@ export class AccountService {
         let user = new User()
         user.username = payload.username
         user.password = payload.password
+        user.email = payload.email
 
+        // REMOVE ON OFFICIAL RELEASE
+        user.beta = true
+
+        let avatar = new Avatar()
+        
         try {
-            return await user.save()
+            await avatar.save()
+            
+            user.avatar = avatar
+            
+            await user.save()
+            await avatar.render()
+
+            /* Do additionally things with user before saving. */
+
+            return user
         } catch (e) {
             throw new BadRequestException(['Username was taken'])
         }
@@ -39,22 +61,38 @@ export class AccountService {
             const user = await this.userRepository
                 .createQueryBuilder('user')
                 .addSelect('user.password')
+                .addSelect('user.token')
                 .where({username})
                 .getOneOrFail()
             if(!user || !(await bcrypt.compare(password, user.password))) {
                 throw new Error()
             }
+            // User is authenticated
+            if(user.token === null) {
+                // Refresh the token if the token is null
+                console.log('was null')
+                user.refreshToken()
+                user.save()
+            }
+
+            
+
             return user
         } catch (e) {
             throw new BadRequestException('Invalid Credentials')
         }
     }
 
-    async login(user: User, remember?: boolean) {
+    async login(user: User, remember: boolean) {
         // Sub is a standard practice for JWT for user id
-        const payload = { username: user.username, sub: user.id }
+        const payload = { sub: user.token }
         return {
-            access_token: this.jwtService.sign(payload, {expiresIn: (remember) ? '30d': Config.defaultExpire})
+            token: this.jwtService.sign(payload, {expiresIn: (remember) ? '30d': Config.defaultExpire}),
         }
+    }
+
+    async forceLogout(user: User): Promise<User> {
+        user.refreshToken()
+        return await user.save()
     }
 }
