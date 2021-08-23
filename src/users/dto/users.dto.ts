@@ -1,4 +1,6 @@
 import { IsNotEmpty, IsAlphanumeric, IsString, MinLength, MaxLength, IsDate, IsNumber, IsEmail, Validate } from 'class-validator'
+import { IsUniqueDB } from 'src/db/dto/is-unique.decorator'
+import { User } from 'src/db/entities/user/user.entity'
 import { UserExists, UserExistsRule } from 'src/users/dto/users-exists.decorator'
 import { Match } from './match.decorator'
 export class LoginDTO {
@@ -6,7 +8,7 @@ export class LoginDTO {
     @IsAlphanumeric()
     @MinLength(4)
     @MaxLength(20)
-    @UserExists('login')
+    @IsUniqueDB(User, 'username', false, {message: 'Username does not exist.'})
     username: string
 
     @IsNotEmpty()
@@ -20,11 +22,12 @@ export class RegisterDTO {
     @IsAlphanumeric()
     @MinLength(4)
     @MaxLength(20)
-    @UserExists('register')
+    @IsUniqueDB(User, 'username', true, {message: 'Username already exists.'})
     username: string
 
     @IsNotEmpty()
     @IsEmail()
+    @IsUniqueDB(User, 'email', true, {message: 'Email already exists.'})
     email: string
 
     @IsNotEmpty()
