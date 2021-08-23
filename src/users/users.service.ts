@@ -1,7 +1,7 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getCols } from 'src/db/abstract-entity';
-import { User } from 'src/db/user.entity';
+import { getCols } from 'src/db/entities/abstract-entity';
+import { User } from 'src/db/entities/user/user.entity';
 import { Repository } from 'typeorm';
 import { RegisterDTO } from './dto/users.dto';
 
@@ -17,11 +17,13 @@ export class UsersService {
     }
 
     async findOne(payload: any): Promise<User> {
-        return this.usersRepository.findOne(payload)
+        let user = await this.usersRepository.findOne(payload, {relations: ['avatar', 'inventory']})
+        if(!user) throw new NotFoundException('User was not found')
+        return user
     }
 
     async getAll(id: number) {
-        let {password, token, ...user} = await this.usersRepository.findOne({select: getCols(this.usersRepository), where: {id}})
+        let {password, token, ...user} = await this.usersRepository.findOne({select: getCols(this.usersRepository), where: {id}, relations: ['avatar']})
         return user
     }
 
