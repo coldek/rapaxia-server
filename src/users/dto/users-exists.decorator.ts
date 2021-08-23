@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
-import { User } from "src/db/user.entity";
+import { User } from "src/db/entities/user/user.entity";
 import { Repository } from "typeorm";
 import { UsersService } from "../users.service";
 
@@ -34,7 +34,6 @@ export class UserExistsRule implements ValidatorConstraintInterface {
     }
 
     defaultMessage(args: ValidationArguments) {
-        console.log(args.constraints[0])
         return (args.constraints[0] === 'login') ? 'User was not found.': 'User already exists.'
     }
 }
