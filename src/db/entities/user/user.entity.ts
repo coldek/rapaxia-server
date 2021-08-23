@@ -11,6 +11,15 @@ const select = (columns: string[]) => {
     return columns ? { select: columns as any }: {}
 }
 
+export enum Role {
+    Guest = 0,
+    Verified = 1,
+    Member = 2,
+    Mod = 3,
+    Admin = 4,
+    Super = 5,
+}
+
 @Entity()
 export class User extends AbstractEntity {
     @Column({unique: true})
@@ -36,6 +45,9 @@ export class User extends AbstractEntity {
 
     @Column({default: false})
     beta: boolean
+
+    @Column({type: 'enum', enum: Role, default: Role.Guest})
+    role: Role
 
     // @Column({type: 'json'})
 
@@ -85,5 +97,14 @@ export class User extends AbstractEntity {
     @BeforeInsert()
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10)
+    }
+
+    /**
+     * If the user's role is bigger than or equal to param role
+     * @param role 
+     * @returns 
+     */
+    hasRole(role: Role): boolean {
+        return this.role >= role
     }
 }
