@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne } from "typeorm";
-import { AbstractEntity } from "./abstract-entity"
+import { AbstractEntity } from "../abstract-entity"
 import { Item } from "./item.entity";
-import { User } from "./user.entity";
+import { User } from "../user/user.entity";
 
 @Entity()
 export class InventoryItem extends AbstractEntity {

@@ -1,11 +1,11 @@
 import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
-import { AbstractEntity } from './abstract-entity';
+import { AbstractEntity } from '../abstract-entity';
 import bcrypt = require('bcrypt')
 import crypto = require('crypto')
-import { Comment } from './comment.entity';
+import { Comment } from '../shop/comment.entity';
 import { Avatar } from './avatar.entity';
-import { InventoryItem } from './inventory-item.entity';
-import { Item } from './item.entity';
+import { InventoryItem } from '../shop/inventory-item.entity';
+import { Item } from '../shop/item.entity';
 
 const select = (columns: string[]) => {
     return columns ? { select: columns as any }: {}
@@ -37,8 +37,13 @@ export class User extends AbstractEntity {
     @Column({default: false})
     beta: boolean
 
+    // @Column({type: 'json'})
+
     @OneToMany(type => InventoryItem, inventoryItem => inventoryItem.user)
     inventory: InventoryItem[]
+
+    // @OneToOne(type => UserInfo, {cascade: true})
+    // userInfo: UserInfo
 
     /**
      * Update token hash

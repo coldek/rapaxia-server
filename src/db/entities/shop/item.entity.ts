@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import { AbstractEntity } from "./abstract-entity";
+import { AbstractEntity } from "../abstract-entity";
 import { InventoryItem } from "./inventory-item.entity";
-import { User } from "./user.entity";
+import { User } from "../user/user.entity";
 
 export enum ItemType {
     Face = 'face',

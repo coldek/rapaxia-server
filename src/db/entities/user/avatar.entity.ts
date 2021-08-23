@@ -1,11 +1,11 @@
-import { AbstractEntity } from "./abstract-entity";
-import { AfterInsert, BeforeInsert, Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { AbstractEntity } from "../abstract-entity";
+import { AfterInsert, AfterUpdate, BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import crypto = require('crypto');
 import { User } from "./user.entity";
 import { exec, execSync } from 'child_process'
 import { unlink, unlinkSync } from 'fs'
 import { Config } from "src/config";
-import { Item } from "./item.entity";
+import { Item } from "../shop/item.entity";
 import internal = require("stream");
 
 // Used for colors
@@ -46,10 +46,10 @@ const defaultColors: Colors = {
 
 @Entity()
 export class Avatar extends AbstractEntity {
-    @Column({type: 'json', default: JSON.stringify(defaultColors)})
+    @Column({type: 'json', default: JSON.stringify(defaultColors), select: false})
     colors: Colors
 
-    @Column({type: 'json', default: JSON.stringify(defaultApparel)})
+    @Column({type: 'json', default: JSON.stringify(defaultApparel), select: false})
     apparel: Apparel
 
     @Column()
@@ -58,6 +58,8 @@ export class Avatar extends AbstractEntity {
     @OneToOne(type => User, user => user.avatar)
     user: User
 
+    @BeforeUpdate()
+    @BeforeInsert()
     public async render() {
         // Delete previous files of render
         try {
@@ -70,7 +72,9 @@ export class Avatar extends AbstractEntity {
 
         // Directory of renderer from config file
         let dir = `${__dirname}\\..\\..\\..\\avatar\\render\\render.py`
-        let {head, left_arm, left_leg, right_arm, right_leg, torso} = this.colors
+
+        // If this.colors is not initialized just do the default colors.
+        let {head, left_arm, left_leg, right_arm, right_leg, torso} = (this.colors === undefined) ? defaultColors: this.colors
 
         let data = JSON.stringify({
             export: `${this.cache}.png`,
@@ -86,7 +90,7 @@ export class Avatar extends AbstractEntity {
         }).replace(/\"/g, '\\"')
         
         await execSync(`blender -b --python ${dir} -- ${data}`)
-        
-        return await this.save()
+
+        return this
     }
 }
