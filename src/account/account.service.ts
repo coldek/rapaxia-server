@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/db/user.entity';
+import { User } from 'src/db/entities/user/user.entity';
 import { LoginDTO, RegisterDTO } from 'src/users/dto/users.dto';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 import bcrypt = require('bcrypt')
 import { JwtService } from '@nestjs/jwt';
 import { Config } from 'src/config';
-import { Avatar } from 'src/db/avatar.entity';
-import { Item } from 'src/db/item.entity';
-import { InventoryItem } from 'src/db/inventory-item.entity';
+import { Avatar } from 'src/db/entities/user/avatar.entity';
+import { Item } from 'src/db/entities/shop/item.entity';
+import { InventoryItem } from 'src/db/entities/shop/inventory-item.entity';
 
 @Injectable()
 export class AccountService {
@@ -41,18 +41,17 @@ export class AccountService {
         let avatar = new Avatar()
         
         try {
-            await avatar.save()
-            
             user.avatar = avatar
             
+            await avatar.save()
             await user.save()
-            await avatar.render()
 
             /* Do additionally things with user before saving. */
 
             return user
         } catch (e) {
-            throw new BadRequestException(['Username was taken'])
+            console.log(e)
+            throw new BadRequestException(['Unknown error code 1'])
         }
     }
 
@@ -70,16 +69,13 @@ export class AccountService {
             // User is authenticated
             if(user.token === null) {
                 // Refresh the token if the token is null
-                console.log('was null')
                 user.refreshToken()
                 user.save()
             }
 
-            
-
             return user
         } catch (e) {
-            throw new BadRequestException('Invalid Credentials')
+            throw new BadRequestException(['Invalid Credentials'])
         }
     }
 
