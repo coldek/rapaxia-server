@@ -21,4 +21,8 @@ export class MatchConstraint implements ValidatorConstraintInterface {
         return value === relatedValue;
     }
 
+    defaultMessage() {
+        return 'Passwords must match'
+    }
+
 }
