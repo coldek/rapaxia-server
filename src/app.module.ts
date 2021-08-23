@@ -7,6 +7,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AvatarModule } from './avatar/avatar.module';
 import { ShopModule } from './shop/shop.module';
+import { DbModule } from './db/db.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
@@ -14,9 +15,9 @@ import { ShopModule } from './shop/shop.module';
       ttl: 60,
       limit: 10
   }), ServeStaticModule.forRoot({
-    rootPath: `${__dirname}/../../public/avatars/body`,
-    serveRoot: `/images/body`
-  }), AvatarModule, ShopModule],
+    rootPath: `${__dirname}/../../public/avatars`,
+    serveRoot: `/images`
+  }), AvatarModule, ShopModule, DbModule],
   controllers: [],
   providers: [],
 })
