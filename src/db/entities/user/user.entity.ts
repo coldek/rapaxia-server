@@ -25,7 +25,7 @@ export class User extends AbstractEntity {
     @Column({unique: true})
     username: string
 
-    @Column({unique: true, nullable: true})
+    @Column({unique: true, nullable: true, select: false})
     email: string
 
     @Column({select: false})
@@ -37,7 +37,9 @@ export class User extends AbstractEntity {
     @Column({default: 0, select: false})
     currency: number
 
-    @OneToOne(type => Avatar, avatar => avatar.user) @JoinColumn()
+    @OneToOne(type => Avatar, avatar => avatar.user, {
+        eager: true
+    }) @JoinColumn()
     avatar: Avatar
 
     @OneToMany(type => Comment, comment => comment.author)
