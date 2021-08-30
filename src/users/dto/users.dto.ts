@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsAlphanumeric, IsString, MinLength, MaxLength, IsDate, IsNumber, IsEmail, Validate } from 'class-validator'
 import { IsUniqueDB } from 'src/db/dto/is-unique.decorator'
+import { Profanity } from 'src/db/dto/profanity.decorator'
 import { User } from 'src/db/entities/user/user.entity'
 import { UserExists, UserExistsRule } from 'src/users/dto/users-exists.decorator'
 import { Match } from './match.decorator'
@@ -23,6 +24,7 @@ export class RegisterDTO {
     @MinLength(4)
     @MaxLength(20)
     @IsUniqueDB(User, 'username', true, {message: 'Username already exists.'})
+    @Profanity()
     username: string
 
     @IsNotEmpty()
