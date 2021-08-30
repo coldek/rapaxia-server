@@ -3,23 +3,31 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { AccountModule } from './account/account.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AvatarModule } from './avatar/avatar.module';
 import { ShopModule } from './shop/shop.module';
 import { DbModule } from './db/db.module';
+import { ForumModule } from './forum/forum.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './account/strategies/roles.guard';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
     ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 10
+      ttl: 5,
+      limit: 20
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public/avatars`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule],
+  }), AvatarModule, ShopModule, DbModule, ForumModule],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
+    }
+  ],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
