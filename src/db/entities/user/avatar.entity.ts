@@ -71,7 +71,7 @@ export class Avatar extends AbstractEntity {
         this.cache = crypto.randomBytes(20).toString('hex')
 
         // Directory of renderer from config file
-        let dir = `${__dirname}\\..\\..\\..\\avatar\\render\\render.py`
+        let dir = `${Config.directories.root+Config.directories.render}`
 
         // If this.colors is not initialized just do the default colors.
         let {head, left_arm, left_leg, right_arm, right_leg, torso} = (this.colors === undefined) ? defaultColors: this.colors
