@@ -11,6 +11,8 @@ import { DbModule } from './db/db.module';
 import { ForumModule } from './forum/forum.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './account/strategies/roles.guard';
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { FileManagerModule } from './file-manager/file-manager.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
@@ -20,7 +22,7 @@ import { RolesGuard } from './account/strategies/roles.guard';
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public/avatars`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, ForumModule],
+  }), AvatarModule, ShopModule, DbModule, ForumModule, HttpModule, FileManagerModule],
   controllers: [],
   providers: [
     {
