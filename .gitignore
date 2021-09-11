@@ -3,4 +3,5 @@ node_modules
 db.sqlite
 avatar/shop/*/*
 public/avatars/*/*
+public/image/*
 migration/*
