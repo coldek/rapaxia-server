@@ -8,7 +8,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { AvatarModule } from './avatar/avatar.module';
 import { ShopModule } from './shop/shop.module';
 import { DbModule } from './db/db.module';
-import { ForumModule } from './forum/forum.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './account/strategies/roles.guard';
 import { HttpModule, HttpService } from '@nestjs/axios';
@@ -22,7 +21,7 @@ import { FileManagerModule } from './file-manager/file-manager.module';
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public/avatars`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, ForumModule, HttpModule, FileManagerModule],
+  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule],
   controllers: [],
   providers: [
     {
