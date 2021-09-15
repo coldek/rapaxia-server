@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/db/entities/user/user.entity';
 import { LoginDTO, RegisterDTO } from 'src/users/dto/users.dto';
@@ -56,27 +56,25 @@ export class AccountService {
     }
 
     async validateUser(username: string, password: string): Promise<User> {
-        try {
-            const user = await this.userRepository
-                .createQueryBuilder('user')
-                .addSelect('user.password')
-                .addSelect('user.token')
-                .where({username})
-                .getOneOrFail()
-            if(!user || !(await bcrypt.compare(password, user.password))) {
-                throw new Error()
-            }
-            // User is authenticated
-            if(user.token === null) {
-                // Refresh the token if the token is null
-                user.refreshToken()
-                user.save()
-            }
+        /**
+         * @see https://github.com/typeorm/typeorm/issues/4159
+         */
+        const user = await this.userRepository.findOne({username}, {select: ['id', 'token', 'password']})
 
-            return user
-        } catch (e) {
-            throw new BadRequestException(['Invalid Credentials'])
+        // User doesn't exist
+        if(user === undefined) throw new BadRequestException(['User was not found.'])
+
+        // Incorrect password
+        if(!user || !(await bcrypt.compare(password, user.password))) throw new UnauthorizedException(['Invalid password.'])
+
+        // User is authenticated
+        if(user.token === null) {
+            // Refresh the token if the token is null
+            user.refreshToken()
+            user.save()
         }
+
+        return user
     }
 
     async login(user: User, remember: boolean) {
