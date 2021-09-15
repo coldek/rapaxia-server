@@ -6,6 +6,7 @@ import { Comment } from '../shop/comment.entity';
 import { Avatar } from './avatar.entity';
 import { InventoryItem } from '../shop/inventory-item.entity';
 import { Item } from '../shop/item.entity';
+import { CommunityMember } from '../community/community-member.entity';
 
 const select = (columns: string[]) => {
     return columns ? { select: columns as any }: {}
@@ -51,13 +52,11 @@ export class User extends AbstractEntity {
     @Column({type: 'enum', enum: Role, default: Role.Guest})
     role: Role
 
-    // @Column({type: 'json'})
-
     @OneToMany(type => InventoryItem, inventoryItem => inventoryItem.user)
     inventory: InventoryItem[]
 
-    // @OneToOne(type => UserInfo, {cascade: true})
-    // userInfo: UserInfo
+    @OneToMany(type => CommunityMember, member => member.user)
+    communities: CommunityMember[]
 
     /**
      * Update token hash
