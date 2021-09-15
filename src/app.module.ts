@@ -12,16 +12,17 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './account/strategies/roles.guard';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { FileManagerModule } from './file-manager/file-manager.module';
+import { CommunityModule } from './community/community.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
     ThrottlerModule.forRoot({
-      ttl: 5,
+      ttl: 60,
       limit: 20
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public/avatars`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule],
+  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule],
   controllers: [],
   providers: [
     {
