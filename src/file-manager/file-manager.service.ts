@@ -8,6 +8,13 @@ import fs = require('fs')
 import crypto = require('crypto')
 import { User } from 'src/db/entities/user/user.entity';
 
+export type IOptions = {
+    type: 'image/png' | 'model/obj',
+    size?: number,
+    destination?: string, // With respect to ./public
+    dimensions?: [x: number, y: number]
+}
+
 @Injectable()
 export class FileManagerService {
     constructor(
@@ -16,27 +23,19 @@ export class FileManagerService {
     ) {}
     
     /**
-     * Validates the file, then uploads it to location. When inserted upon database, it will be pending approval by a staff member.
-     * @example let file = await this.fileManagerService.upload(_file, user, {
-                type: 'image/png',
-                dimensions: [2000,2000]
-            })
+     * 
      * @param file 
-     * @param options 
-     * @returns File
+     * @returns options 
      */
-    async upload(_file: Express.Multer.File | Array<Express.Multer.File>, user: User, options: {
-        type: 'image/png' | 'model/obj',
-        size?: number,
-        destination?: string, // With respect to ./public
-        dimensions?: [x: number, y: number]
-    }): Promise<File> {
+    public verifyFile(_file: Express.Multer.File | Array<Express.Multer.File>, options: IOptions): IOptions {
+        if(_file === undefined) throw new BadRequestException(['No file provided.'])
+
         // Default options
         let option = {...{
             size: 1e+6,
-            desination: 'image\\',
+            destination: 'image\\',
         }, ...options}
-        
+
         // VALIDATE THE IMAGE
 
         const buffer = _file['buffer']
@@ -54,10 +53,26 @@ export class FileManagerService {
             if(width !== x || height !== y) throw new BadRequestException([`Invalid image dimensions. (${x}x${y})`])
         }
 
+        return option
+    }
+
+    /**
+     * Upload a file (assuming the file has been verified). When inserted into database, it will be pending approval by a staff member.
+     * @example let file = await this.fileManagerService.upload(_file, user, {
+                type: 'image/png',
+                dimensions: [2000,2000]
+            })
+     * @param file 
+     * @param options 
+     * @returns File
+     */
+    async upload(_file: Express.Multer.File | Array<Express.Multer.File>, user: User, option: IOptions): Promise<File> {
+        const buffer = _file['buffer']
+
         const unique = crypto.randomBytes(20).toString('hex') 
 
         // Image validation complete, move file to destination folder.
-        const destination = `${Config.directories.root}${Config.directories.imageServer}${option.desination}${unique}.${(_file['mimetype'].split('/')).slice(-1)}`
+        const destination = `${Config.directories.root}${Config.directories.imageServer}${option.destination}${unique}.${(_file['mimetype'].split('/')).slice(-1)}`
         
         let file = await this.fileRepository.save({
             src: unique,

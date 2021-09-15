@@ -7,6 +7,7 @@ import { FileManagerController } from './file-manager.controller';
 @Module({
 imports: [TypeOrmModule.forFeature([File])],
 providers: [FileManagerService],
-controllers: [FileManagerController]
+controllers: [FileManagerController],
+exports: [FileManagerService]
 })
 export class FileManagerModule {}
