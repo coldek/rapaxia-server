@@ -56,6 +56,12 @@ export class AccountService {
     }
 
     async validateUser(username: string, password: string): Promise<User> {
+        console.log(username, password)
+
+        let data: LoginDTO = {
+            username, password
+        }
+
         /**
          * @see https://github.com/typeorm/typeorm/issues/4159
          */
@@ -78,6 +84,7 @@ export class AccountService {
     }
 
     async login(user: User, remember: boolean) {
+        
         // Sub is a standard practice for JWT for user id
         const payload = { sub: user.token }
         return {
