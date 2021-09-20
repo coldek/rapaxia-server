@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+import { AfterLoad, BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 import { AbstractEntity } from '../abstract-entity';
 import bcrypt = require('bcrypt')
 import crypto = require('crypto')
@@ -58,6 +58,8 @@ export class User extends AbstractEntity {
     @OneToMany(type => CommunityMember, member => member.user)
     communities: CommunityMember[]
 
+    isOnline: boolean
+
     /**
      * Update token hash
      */
@@ -98,6 +100,11 @@ export class User extends AbstractEntity {
     @BeforeInsert()
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10)
+    }
+
+    @AfterLoad()
+    async checkOnline() {
+        this.isOnline = true
     }
 
     /**
