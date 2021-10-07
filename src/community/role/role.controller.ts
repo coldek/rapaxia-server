@@ -4,6 +4,7 @@ import { Response as ResponseType } from 'express';
 import { take } from 'rxjs';
 import { PermType, PermTypes } from 'src/db/entities/community/community-role.entity';
 import { Role } from 'src/db/entities/user/user.entity';
+import { IsStrict } from 'src/middleware/is-strict.middleware';
 import { CommunityService } from '../community.service';
 import { CommunityRoleDTO, PatchCommunityRoleDTO } from '../dto/community-role.dto';
 import { PatchCommunityDTO } from '../dto/community.dto';
@@ -32,7 +33,7 @@ export class RoleController {
      * @route POST /community/:slug/role
      */
     @Post(':slug/role')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async create(@Param('slug') slug: string, @Body() payload: CommunityRoleDTO, @Req() {user}) {
         let community = await this.communityService.fetch(slug)
         if(community.creator.id !== user.id) throw new UnauthorizedException(['Insufficient permissions.'])
@@ -50,7 +51,7 @@ export class RoleController {
      * 
      */
     @Patch('role/:roleId')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async update(@Param('roleId') roleId: string, @Body() data: PatchCommunityRoleDTO, @Req() {user}) {
         let role = await this.roleService.fetch(roleId)
         let community = await this.communityService.fetch(role.communitySlug)
@@ -62,7 +63,7 @@ export class RoleController {
     }
 
     @Delete('role/:roleId')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async delete(@Param('roleId') roleId: string, @Req() {user}, @Response() Res: ResponseType) {
         let role = await this.roleService.fetch(roleId)
         let community = await this.communityService.fetch(role.communitySlug)

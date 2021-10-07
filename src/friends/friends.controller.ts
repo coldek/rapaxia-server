@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from 'src/users/users.service';
 import { FriendsService } from './friends.service';
 import {Response as ResponseType} from 'express'
+import { IsStrict } from 'src/middleware/is-strict.middleware';
 
 @Controller('friends')
 export class FriendsController {
@@ -13,7 +14,7 @@ export class FriendsController {
     
     // Send a friend request
     @Post('/user/:uid')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async send(@Param('uid') uid: number, @Req() {user}) {
         if(uid == user.id)
             throw new BadRequestException(['You cannot send a friend request to yourself.'])
@@ -39,7 +40,7 @@ export class FriendsController {
     }
 
     @Delete('/:fid/remove')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async removeFriend(@Param('fid') fid: string, @Req() {user}) {
         let friend = await this.friendsService.getFriendFromIdOrFail(fid)
 
@@ -50,7 +51,7 @@ export class FriendsController {
     }
 
     @Post('/:fid/accept')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async acceptFriend(@Param('fid') fid: string, @Req() {user}) {
         let friend = await this.friendsService.getFriendFromIdOrFail(fid)
 

@@ -8,12 +8,13 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { AvatarModule } from './avatar/avatar.module';
 import { ShopModule } from './shop/shop.module';
 import { DbModule } from './db/db.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, Reflector } from '@nestjs/core';
 import { RolesGuard } from './account/strategies/roles.guard';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { FileManagerModule } from './file-manager/file-manager.module';
 import { CommunityModule } from './community/community.module';
 import { FriendsModule } from './friends/friends.module';
+import { JwtAuthGuard } from './account/strategies/allow-any-jwt.guard';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
@@ -29,6 +30,11 @@ import { FriendsModule } from './friends/friends.module';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard
+    },
+    {
+      provide: APP_GUARD,
+      useFactory: ref => new JwtAuthGuard(ref),
+      inject: [Reflector]
     }
   ],
 })

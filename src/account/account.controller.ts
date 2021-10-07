@@ -1,5 +1,6 @@
 import { Body, Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { IsStrict } from 'src/middleware/is-strict.middleware';
 import { LoginDTO, RegisterDTO } from 'src/users/dto/users.dto';
 import { UsersService } from 'src/users/users.service';
 import { AccountService } from './account.service';
@@ -32,14 +33,14 @@ export class AccountController {
         return this.accountService.login(req.user, req.body.remember)
     }
 
-    @UseGuards(AuthGuard('jwt'))
     @Get('/user')
+    @IsStrict()
     async getProfile(@Request() req) {
         return {user: await this.usersService.getAll(req.user.id)}
     }
 
-    @UseGuards(AuthGuard('jwt'))
     @Post('/logout')
+    @IsStrict()
     async logout(@Request() {user}) {
         return await this.accountService.forceLogout(user)
     }

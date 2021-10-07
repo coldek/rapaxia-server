@@ -6,6 +6,7 @@ import { MemberService } from './member.service';
 import { Response as ResponseType } from 'express'
 import { Role } from 'src/db/entities/user/user.entity';
 import { CommunityMemberDTO } from '../dto/community-member.dto';
+import { IsStrict } from 'src/middleware/is-strict.middleware';
 
 @Controller('community')
 export class MemberController {
@@ -29,7 +30,7 @@ export class MemberController {
      * @route POST /community/:slug/member
      */
     @Post(':slug/member')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async create(@Param('slug') slug:string, @Req() {user}) {
         let community = await this.communityService.fetch(slug)
 
@@ -56,7 +57,7 @@ export class MemberController {
     }
 
     @Patch('member/:mid')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async giveRole(@Req() {user}, @Param('mid') mid: string, @Body() {role: _role}: CommunityMemberDTO) {
         let member = await this.memberService.fetchFromIdOrFail(mid)
         let role = await this.roleService.fetch(_role)
@@ -86,7 +87,7 @@ export class MemberController {
     }
 
     @Delete('member/:mid/kick')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async kickMember(@Req() {user}, @Param('mid') mid: string, @Response() res: ResponseType) {
         let member = await this.memberService.fetchFromIdOrFail(mid)
 
@@ -116,7 +117,7 @@ export class MemberController {
      * @author test this 
      */
     @Delete('member/:mid/ban')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async banMember(@Req() {user}, @Param('mid') mid: string, @Response() res: ResponseType) {
         let member = await this.memberService.fetchFromIdOrFail(mid)
         
@@ -151,7 +152,7 @@ export class MemberController {
     }
 
     @Post(':slug/ban/:uid')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async pardon(@Param('slug') slug: string, @Param('uid') uid: number, @Req() {user}) {
         let community = await this.communityService.fetch(slug)
         let member = await this.memberService.fetchOrFail(slug, user.id)

@@ -7,6 +7,7 @@ import { CommunityService } from './community.service';
 import { PatchCommunityDTO, PostCommunityDTO } from './dto/community.dto';
 import { MemberService } from './member/member.service';
 import { Response as ResponseType } from 'express'
+import { IsStrict } from 'src/middleware/is-strict.middleware';
 
 @Controller('community')
 export class CommunityController {
@@ -22,7 +23,7 @@ export class CommunityController {
      * 
      */
     @Post()
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     @UseInterceptors(FileInterceptor('file'))
     async create(@Body() data: PostCommunityDTO, @Req() {user}, @UploadedFile() _file: Express.Multer.File) {
         const options = this.fileService.verifyFile(_file, {
@@ -62,7 +63,7 @@ export class CommunityController {
      * 
      */
     @Patch('/:slug/update')
-    @UseGuards(AuthGuard('jwt'))
+    @IsStrict()
     async patch(@Param('slug') slug: string, @Req() {user}, @Body() data: PatchCommunityDTO) {
         let community = await this.communityService.fetch(slug)
         let member = await this.memberService.fetchOrFail(slug, user.id)
