@@ -650,20 +650,91 @@
 			]
 		},
 		{
-			"name": "forum",
+			"name": "community",
 			"item": [
 				{
-					"name": "topic",
+					"name": "role",
 					"item": [
 						{
-							"name": "Update Topic",
+							"name": "Get Role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/community/role/:role",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"community",
+										"role",
+										":role"
+									],
+									"variable": [
+										{
+											"key": "role",
+											"value": "03003ac6-57be-4b69-b319-7bceb5df082f"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Role",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZTNhZDdiMjhiNGQ1NDJhYzM0ZGIzODIzMzQ5NTE1OTI1NWIwNmZkIiwiaWF0IjoxNjMwMDE0NDkxLCJleHAiOjE2MzAxMDA4OTF9.D9fVbyRJ-mAomSlRRFdVNZFvIhcHiex5UQ6r_8PEFkw",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Role\",\r\n    \"perms\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/community/:slug/role",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"community",
+										":slug",
+										"role"
+									],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "general"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
 											"type": "string"
 										}
 									]
@@ -672,7 +743,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"welcome\"\r\n}",
+									"raw": "{\r\n    \"name\": \"New Role\",\r\n    \"perms\": [\"communityEdit\", \"threadsPost\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -680,279 +751,80 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8000/forum/topic/2",
+									"raw": "localhost:8000/community/role/:role",
 									"host": [
 										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"forum",
-										"topic",
-										"2"
+										"community",
+										"role",
+										":role"
+									],
+									"variable": [
+										{
+											"key": "role",
+											"value": "03003ac6-57be-4b69-b319-7bceb5df082f"
+										}
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Update Topic",
-									"originalRequest": {
-										"method": "PATCH",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"title\": \"welcome\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/topic/2",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic",
-												"2"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "8"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "17"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "168"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"a8-kVX8B+qgV0AvPLQFiNv5yTaDlK4\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:51:30 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 2,\n    \"created\": \"2021-08-26T21:50:59.230Z\",\n    \"title\": \"welcome\",\n    \"description\": \"This is the general discussion of Rapaxia.\",\n    \"role\": 2,\n    \"updated\": \"2021-08-26T21:51:30.000Z\"\n}"
-								}
-							]
+							"response": []
 						},
 						{
-							"name": "Make Topic",
+							"name": "Delete Role",
 							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"General Discussion\",\r\n    \"description\": \"This is the general discussion of Rapaxia.\",\r\n    \"role\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
+											"type": "string"
 										}
-									}
+									]
 								},
-								"url": {
-									"raw": "localhost:8000/forum/topic",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"topic"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Make Topic",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"title\": \"General Discussion\",\r\n    \"description\": \"This is the general discussion of Rapaxia.\",\r\n    \"role\": 2\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/topic",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic"
-											]
-										}
-									},
-									"status": "Created",
-									"code": 201,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "8"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "7"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "179"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"b3-w7vskjCj4hDbtrpRRJQ1wdAINas\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:50:59 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"title\": \"General Discussion\",\n    \"description\": \"This is the general discussion of Rapaxia.\",\n    \"role\": 2,\n    \"id\": 2,\n    \"updated\": \"2021-08-26T21:50:59.230Z\",\n    \"created\": \"2021-08-26T21:50:59.230Z\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Delete Topic",
-							"request": {
 								"method": "DELETE",
 								"header": [],
+								"url": {
+									"raw": "localhost:8000/community/role/:roleId",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"community",
+										"role",
+										":roleId"
+									],
+									"variable": [
+										{
+											"key": "roleId",
+											"value": "50ab07e1-af57-4584-85c0-3ba43f2277fa"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Give Role",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiM2U0NmE3NjI3ZDU0MGNjYjE2ODM0MzFkOWZkZjYzZmM5NjFiNjIyIiwiaWF0IjoxNjMxNjA4NDY5LCJleHAiOjE2MzE2OTQ4Njl9.yYX2fMHvFZuDPAiF97InUoG7zj2lxzPU7iUPL0s29n8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"General Discussion\",\r\n    \"description\": \"This is the general discussion of Rapaxia.\",\r\n    \"role\": 2\r\n}",
+									"raw": "{\r\n    \"role\": \"b5517e58-2188-4389-b32f-2b9db7947e05\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -960,1406 +832,529 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8000/forum/topic/1",
+									"raw": "localhost:8000/community/member/41c838d5-c75d-4362-a90a-e49017066375",
 									"host": [
 										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"forum",
-										"topic",
-										"1"
+										"community",
+										"member",
+										"41c838d5-c75d-4362-a90a-e49017066375"
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Delete Topic",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"title\": \"General Discussion\",\r\n    \"description\": \"This is the general discussion of Rapaxia.\",\r\n    \"role\": 2\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/topic/1",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic",
-												"1"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "44"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"2c-YHwg26Ov4FeKzZxnUDkgdWue1Zs\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:50:54 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 200,\n    \"message\": \"Topic was deleted\"\n}"
-								}
-							]
-						},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "member",
+					"item": [
 						{
-							"name": "Fetch Topics",
+							"name": "Get Member",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8000/forum/topic/3",
+									"raw": "localhost:8000/community/:slug/member/:uid",
 									"host": [
 										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"forum",
-										"topic",
-										"3"
+										"community",
+										":slug",
+										"member",
+										":uid"
+									],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "general"
+										},
+										{
+											"key": "uid",
+											"value": "1"
+										}
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Fetch Topics",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/topic/3",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic",
-												"3"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "142"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"8e-Q0iqsq28CYqbmHrEqFCHowwXtak\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:40:30 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 3,\n    \"created\": \"2021-08-23T16:36:54.382Z\",\n    \"title\": \"General Discussion\",\n    \"description\": \"This is the general discussion of Rapaxia.\",\n    \"role\": 2\n}"
-								}
-							]
+							"response": []
 						},
 						{
-							"name": "Fetch Threads",
+							"name": "Get Members",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8000/forum/topic/3/threads?take=15&skip=0",
+									"raw": "localhost:8000/community/role/:role/members?page=1&limit=10",
 									"host": [
 										"localhost"
 									],
 									"port": "8000",
 									"path": [
-										"forum",
-										"topic",
-										"3",
-										"threads"
+										"community",
+										"role",
+										":role",
+										"members"
 									],
 									"query": [
 										{
-											"key": "take",
-											"value": "15"
+											"key": "page",
+											"value": "1"
 										},
 										{
-											"key": "skip",
-											"value": "0"
+											"key": "limit",
+											"value": "10"
+										}
+									],
+									"variable": [
+										{
+											"key": "role",
+											"value": "617abac1-3bc4-4869-8ed3-083c24508982"
 										}
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Fetch Threads",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/topic/3/threads?take=15&skip=0",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic",
-												"3",
-												"threads"
-											],
-											"query": [
-												{
-													"key": "take",
-													"value": "15"
-												},
-												{
-													"key": "skip",
-													"value": "0"
-												}
-											]
+							"response": []
+						},
+						{
+							"name": "Join Community",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
+											"type": "string"
 										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "5422"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"152e-njyijBCRNwJ9eJtFiGx1Cdy2guo\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:37:11 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/community/:slug/member",
+									"host": [
+										"localhost"
 									],
-									"cookie": [],
-									"body": "[\n    [\n        {\n            \"id\": 2,\n            \"created\": \"2021-08-23T17:57:54.715Z\",\n            \"title\": \"[Censored]\",\n            \"body\": \"[Censored]\",\n            \"scrubbed\": true,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": [\n                {\n                    \"id\": 1,\n                    \"created\": \"2021-08-26T20:13:44.888Z\",\n                    \"body\": \"testing\",\n                    \"scrubbed\": false,\n                    \"author\": {\n                        \"id\": 1,\n                        \"created\": \"2021-08-23T12:05:54.663Z\",\n                        \"username\": \"Rapaxia\",\n                        \"beta\": true,\n                        \"role\": 3,\n                        \"avatar\": {\n                            \"id\": 1,\n                            \"created\": \"2021-08-23T12:05:54.593Z\",\n                            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                        }\n                    }\n                },\n                {\n                    \"id\": 2,\n                    \"created\": \"2021-08-26T21:28:00.928Z\",\n                    \"body\": \"testing\",\n                    \"scrubbed\": false,\n                    \"author\": {\n                        \"id\": 1,\n                        \"created\": \"2021-08-23T12:05:54.663Z\",\n                        \"username\": \"Rapaxia\",\n                        \"beta\": true,\n                        \"role\": 3,\n                        \"avatar\": {\n                            \"id\": 1,\n                            \"created\": \"2021-08-23T12:05:54.593Z\",\n                            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                        }\n                    }\n                }\n            ]\n        },\n        {\n            \"id\": 1,\n            \"created\": \"2021-08-23T17:24:15.310Z\",\n            \"title\": \"[Censored]\",\n            \"body\": \"[Censored]\",\n            \"scrubbed\": true,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 3,\n            \"created\": \"2021-08-23T17:58:00.332Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 4,\n            \"created\": \"2021-08-23T17:58:02.177Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 5,\n            \"created\": \"2021-08-23T17:58:02.681Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 6,\n            \"created\": \"2021-08-23T17:58:03.186Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 7,\n            \"created\": \"2021-08-23T17:58:03.517Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 8,\n            \"created\": \"2021-08-23T17:58:03.868Z\",\n            \"title\": \"[Censored]\",\n            \"body\": \"[Censored]\",\n            \"scrubbed\": true,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 9,\n            \"created\": \"2021-08-23T17:58:04.766Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 10,\n            \"created\": \"2021-08-23T17:58:05.144Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 11,\n            \"created\": \"2021-08-23T17:58:05.508Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 12,\n            \"created\": \"2021-08-23T17:58:05.836Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 13,\n            \"created\": \"2021-08-23T17:58:06.119Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 14,\n            \"created\": \"2021-08-23T17:58:07.538Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        },\n        {\n            \"id\": 15,\n            \"created\": \"2021-08-23T17:58:07.951Z\",\n            \"title\": \"This is a thread\",\n            \"body\": \"blehbleh\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"replies\": []\n        }\n    ],\n    37\n]"
+									"port": "8000",
+									"path": [
+										"community",
+										":slug",
+										"member"
+									],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "general"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Ban Member",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOWE0NGFlNGEyOGU0MDU3ZGI0MmMyMzIzMjFlMDE4ZDBiZTBhMzM3IiwiaWF0IjoxNjMxNjEyNjAzLCJleHAiOjE2MzE2OTkwMDN9.cESeTUMA6GuxZ3AhueJ36D8S14dhyiNP5tSWJpg5IeY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/community/member/:mid/ban",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"community",
+										"member",
+										":mid",
+										"ban"
+									],
+									"variable": [
+										{
+											"key": "mid",
+											"value": "dc0f8d71-c525-4121-8bbc-676ccd92f0c4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pardon User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOWE0NGFlNGEyOGU0MDU3ZGI0MmMyMzIzMjFlMDE4ZDBiZTBhMzM3IiwiaWF0IjoxNjMxNjE2MDcwLCJleHAiOjE2MzE3MDI0NzB9.WlRTqAANXNuz5HGIytOWy-1DtzaE9Z9yk3YgkfgXJGc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/community/:slug/ban/:uid",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"community",
+										":slug",
+										"ban",
+										":uid"
+									],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "general"
+										},
+										{
+											"key": "uid",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
 				{
 					"name": "thread",
-					"item": [
-						{
-							"name": "Update Thread",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNGRjMjZkMTkxMjkwOWQwODlmNGJhYzhhYTMyMDFlYTc3MWZhNTQ3IiwiaWF0IjoxNjMwMDAzNDcwLCJleHAiOjE2MzAwODk4NzB9.hn5YF8eqJjDdZIVMQveBvR4lUGELuFSb9CvV3_VV6AE",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"nigba\",\r\n    \"body\": \"yooooo\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:8000/forum/thread/8",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"8"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Update Thread",
-									"originalRequest": {
-										"method": "PATCH",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"title\": \"nigba\",\r\n    \"body\": \"yooooo\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/thread/8",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"8"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "333"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"14d-Pq9vf99wZlgf/E8qMeGAK0BBpDo\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:39:32 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 8,\n    \"created\": \"2021-08-23T17:58:03.868Z\",\n    \"title\": \"nigba\",\n    \"body\": \"yooooo\",\n    \"scrubbed\": true,\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        }\n    },\n    \"updated\": \"2021-08-26T21:39:32.000Z\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Create Thread",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNGRjMjZkMTkxMjkwOWQwODlmNGJhYzhhYTMyMDFlYTc3MWZhNTQ3IiwiaWF0IjoxNjI5NzM2MjE4LCJleHAiOjE2Mjk4MjI2MTh9.xp6533HoQiMyqmamncwF1-39SnEqEA8Hgc7czp9uWUA",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"This is a thread\",\r\n    \"body\": \"blehbleh\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:8000/forum/topic/3/create",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"topic",
-										"3",
-										"create"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Create Thread",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"title\": \"This is a thread\",\r\n    \"body\": \"blehbleh\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/topic/3/create",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"topic",
-												"3",
-												"create"
-											]
-										}
-									},
-									"status": "Created",
-									"code": 201,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "8"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "17"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "514"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"202-Xn/o0besXMgqRd9PPbtRGLC0yJ8\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:32:17 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"title\": \"This is a thread\",\n    \"body\": \"blehbleh\",\n    \"topic\": {\n        \"id\": 3,\n        \"created\": \"2021-08-23T16:36:54.382Z\",\n        \"title\": \"General Discussion\",\n        \"description\": \"This is the general discussion of Rapaxia.\",\n        \"role\": 2\n    },\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        },\n        \"inventory\": []\n    },\n    \"id\": 37,\n    \"updated\": \"2021-08-26T21:32:17.931Z\",\n    \"created\": \"2021-08-26T21:32:17.931Z\",\n    \"scrubbed\": false\n}"
-								}
-							]
-						},
-						{
-							"name": "Fetch Thread",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "localhost:8000/forum/thread/1",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"1"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Fetch Thread",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/thread/1",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"1"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "305"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"131-0qABqI2wThD28b1nAWYn17gp8Q8\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:37:27 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 1,\n    \"created\": \"2021-08-23T17:24:15.310Z\",\n    \"title\": \"[Censored]\",\n    \"body\": \"[Censored]\",\n    \"scrubbed\": true,\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        }\n    }\n}"
-								}
-							]
-						},
-						{
-							"name": "Scrub Thread",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNGRjMjZkMTkxMjkwOWQwODlmNGJhYzhhYTMyMDFlYTc3MWZhNTQ3IiwiaWF0IjoxNjMwMDAzNDcwLCJleHAiOjE2MzAwODk4NzB9.hn5YF8eqJjDdZIVMQveBvR4lUGELuFSb9CvV3_VV6AE",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "localhost:8000/forum/thread/2",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"2"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Scrub Thread",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/thread/2",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"2"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "343"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"157-HYgGVjDhmPNiRGSbXaqj7U2DfIY\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:38:27 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 2,\n    \"created\": \"2021-08-23T17:57:54.715Z\",\n    \"title\": \"[Censored]\",\n    \"body\": \"[Censored]\",\n    \"scrubbed\": false,\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        }\n    },\n    \"updated\": \"2021-08-26T21:38:27.000Z\"\n}"
-								}
-							]
-						}
-					]
+					"item": []
 				},
 				{
 					"name": "reply",
-					"item": [
-						{
-							"name": "Get Replies",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "localhost:8000/forum/thread/2/reply?take=1&skip=0",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"2",
-										"reply"
-									],
-									"query": [
-										{
-											"key": "take",
-											"value": "1"
-										},
-										{
-											"key": "skip",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": [
+					"item": []
+				},
+				{
+					"name": "Fetch Communities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/community/?page=1&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"community",
+								""
+							],
+							"query": [
 								{
-									"name": "Get Replies",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/thread/2/reply?take=1&skip=0",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"2",
-												"reply"
-											],
-											"query": [
-												{
-													"key": "take",
-													"value": "1"
-												},
-												{
-													"key": "skip",
-													"value": "0"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "7"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "3"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "303"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"12f-4Q82jq/fcFfxv2hqx/RzinBdZ7g\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:29:20 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "[\n    [\n        {\n            \"id\": 1,\n            \"created\": \"2021-08-26T20:13:44.888Z\",\n            \"body\": \"testing\",\n            \"scrubbed\": false,\n            \"author\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.663Z\",\n                \"username\": \"Rapaxia\",\n                \"beta\": true,\n                \"role\": 3,\n                \"avatar\": {\n                    \"id\": 1,\n                    \"created\": \"2021-08-23T12:05:54.593Z\",\n                    \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n                }\n            },\n            \"quoting\": null\n        }\n    ],\n    2\n]"
-								}
-							]
-						},
-						{
-							"name": "Create Reply",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNGRjMjZkMTkxMjkwOWQwODlmNGJhYzhhYTMyMDFlYTc3MWZhNTQ3IiwiaWF0IjoxNjMwMDAzNDcwLCJleHAiOjE2MzAwODk4NzB9.hn5YF8eqJjDdZIVMQveBvR4lUGELuFSb9CvV3_VV6AE",
-											"type": "string"
-										}
-									]
+									"key": "page",
+									"value": "1"
 								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"body\": \"testing\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:8000/forum/thread/2/reply",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"2",
-										"reply"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "Create Reply",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"body\": \"testing\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:8000/forum/thread/2/reply",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"2",
-												"reply"
-											]
-										}
-									},
-									"status": "Created",
-									"code": 201,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "9"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "0"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "649"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"289-4kw//VuRmUJWS8EKaZF/FewTkL8\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:28:00 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"thread\": {\n        \"id\": 2,\n        \"created\": \"2021-08-23T17:57:54.715Z\",\n        \"title\": \"[Censored]\",\n        \"body\": \"[Censored]\",\n        \"scrubbed\": true,\n        \"author\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.663Z\",\n            \"username\": \"Rapaxia\",\n            \"beta\": true,\n            \"role\": 3,\n            \"avatar\": {\n                \"id\": 1,\n                \"created\": \"2021-08-23T12:05:54.593Z\",\n                \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n            }\n        }\n    },\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        },\n        \"inventory\": []\n    },\n    \"body\": \"testing\",\n    \"id\": 2,\n    \"updated\": \"2021-08-26T21:28:00.928Z\",\n    \"created\": \"2021-08-26T21:28:00.928Z\",\n    \"scrubbed\": false\n}"
-								}
-							]
-						},
-						{
-							"name": "Scrub Reply",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNGRjMjZkMTkxMjkwOWQwODlmNGJhYzhhYTMyMDFlYTc3MWZhNTQ3IiwiaWF0IjoxNjMwMDAzNDcwLCJleHAiOjE2MzAwODk4NzB9.hn5YF8eqJjDdZIVMQveBvR4lUGELuFSb9CvV3_VV6AE",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "localhost:8000/forum/thread/2/reply/1",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"forum",
-										"thread",
-										"2",
-										"reply",
-										"1"
-									]
-								}
-							},
-							"response": [
-								{
-									"name": "Scrub Reply",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:8000/forum/thread/2/reply/1",
-											"host": [
-												"localhost"
-											],
-											"port": "8000",
-											"path": [
-												"forum",
-												"thread",
-												"2",
-												"reply",
-												"1"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										},
-										{
-											"key": "Content-Security-Policy",
-											"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-										},
-										{
-											"key": "X-DNS-Prefetch-Control",
-											"value": "off"
-										},
-										{
-											"key": "Expect-CT",
-											"value": "max-age=0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Strict-Transport-Security",
-											"value": "max-age=15552000; includeSubDomains"
-										},
-										{
-											"key": "X-Download-Options",
-											"value": "noopen"
-										},
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-Permitted-Cross-Domain-Policies",
-											"value": "none"
-										},
-										{
-											"key": "Referrer-Policy",
-											"value": "no-referrer"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "X-RateLimit-Limit",
-											"value": "10"
-										},
-										{
-											"key": "X-RateLimit-Remaining",
-											"value": "6"
-										},
-										{
-											"key": "X-RateLimit-Reset",
-											"value": "4"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "Content-Length",
-											"value": "322"
-										},
-										{
-											"key": "ETag",
-											"value": "W/\"142-7js2lmawAskZmwT8xHYH3gfDBrg\""
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 26 Aug 2021 21:27:34 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"id\": 1,\n    \"created\": \"2021-08-26T20:13:44.888Z\",\n    \"body\": \"[Censored]\",\n    \"scrubbed\": false,\n    \"author\": {\n        \"id\": 1,\n        \"created\": \"2021-08-23T12:05:54.663Z\",\n        \"username\": \"Rapaxia\",\n        \"beta\": true,\n        \"role\": 3,\n        \"avatar\": {\n            \"id\": 1,\n            \"created\": \"2021-08-23T12:05:54.593Z\",\n            \"cache\": \"2f716476589d23ccefc488e6c62d155e6faa6a06\"\n        }\n    },\n    \"updated\": \"2021-08-26T21:27:34.000Z\"\n}"
+									"key": "limit",
+									"value": "10"
 								}
 							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Community",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/community/:slug/info",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"community",
+								":slug",
+								"info"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "slug",
+									"value": "off-topic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Community",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "slug",
+									"value": "general",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "General Discussion",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is the general discussion for Rapaxia",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/dukei/Desktop/Rapaxia/test.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/community",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"community"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Community",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTAyZDM4ZjcxZWQwYWRhMzBiNzFkNWFmNWQzYzhmOWIwMzljNGQ5IiwiaWF0IjoxNjMxNTExMTU2LCJleHAiOjE2MzE1OTc1NTZ9.0Hk9FpH2CZZK6qPm1Kf82_94TEalSZEtRUGeqkgxJWk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"New Title\",\r\n    \"description\": \"New Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/community/:slug/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"community",
+								":slug",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "slug",
+									"value": "off-topic"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "friends",
+			"item": [
+				{
+					"name": "Add Friend",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOWE0NGFlNGEyOGU0MDU3ZGI0MmMyMzIzMjFlMDE4ZDBiZTBhMzM3IiwiaWF0IjoxNjMzNTQ2NTIyLCJleHAiOjE2MzM2MzI5MjJ9.QarloMHvPa5i1JUg5k9mzH7EJXBUARUEDYt1zC72cow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/friends/user/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"friends",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Friend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/friends/view/3/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"friends",
+								"view",
+								"3",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete / Decline Friend Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOWE0NGFlNGEyOGU0MDU3ZGI0MmMyMzIzMjFlMDE4ZDBiZTBhMzM3IiwiaWF0IjoxNjMzNTQ2NTIyLCJleHAiOjE2MzM2MzI5MjJ9.QarloMHvPa5i1JUg5k9mzH7EJXBUARUEDYt1zC72cow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/friends/:fid/remove",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"friends",
+								":fid",
+								"remove"
+							],
+							"variable": [
+								{
+									"key": "fid",
+									"value": "3269e4ba-7394-4edb-99b5-c26911c18f5f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Friend Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOWE0NGFlNGEyOGU0MDU3ZGI0MmMyMzIzMjFlMDE4ZDBiZTBhMzM3IiwiaWF0IjoxNjMzNTY0MTA1LCJleHAiOjE2MzM2NTA1MDV9.aFPv_SYhU_AI41Pe3Nipub9BXqH83Tkso1-DUzIqG60",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/friends/:fid/accept",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"friends",
+								":fid",
+								"accept"
+							],
+							"variable": [
+								{
+									"key": "fid",
+									"value": "2a93bdbc-b801-42e9-9fd1-b031197385a0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Friends",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/friends/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"friends",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

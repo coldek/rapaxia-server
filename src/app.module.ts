@@ -13,6 +13,7 @@ import { RolesGuard } from './account/strategies/roles.guard';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { FileManagerModule } from './file-manager/file-manager.module';
 import { CommunityModule } from './community/community.module';
+import { FriendsModule } from './friends/friends.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
@@ -22,7 +23,7 @@ import { CommunityModule } from './community/community.module';
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public/avatars`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule],
+  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule, FriendsModule],
   controllers: [],
   providers: [
     {
