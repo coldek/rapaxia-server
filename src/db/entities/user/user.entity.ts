@@ -58,6 +58,12 @@ export class User extends AbstractEntity {
     @OneToMany(type => CommunityMember, member => member.user)
     communities: CommunityMember[]
 
+    @Column({type: 'text'})
+    bio: string
+
+    @Column({type: 'text'})
+    status: string
+
     isOnline: boolean
 
     /**
