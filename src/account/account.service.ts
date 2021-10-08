@@ -56,8 +56,6 @@ export class AccountService {
     }
 
     async validateUser(username: string, password: string): Promise<User> {
-        console.log(username, password)
-
         let data: LoginDTO = {
             username, password
         }
