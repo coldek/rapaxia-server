@@ -4,16 +4,19 @@ import { CommunityService } from '../community.service';
 import { RoleService } from '../role/role.service';
 import { MemberService } from './member.service';
 import { Response as ResponseType } from 'express'
-import { Role } from 'src/db/entities/user/user.entity';
+import { Role, User } from 'src/db/entities/user/user.entity';
 import { CommunityMemberDTO } from '../dto/community-member.dto';
 import { IsStrict } from 'src/middleware/is-strict.middleware';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('community')
 export class MemberController {
     constructor(
         private readonly memberService: MemberService,
         private readonly communityService: CommunityService,
-        private readonly roleService: RoleService
+        private readonly roleService: RoleService,
+        private readonly usersService: UsersService
     ) {}
     
     /**
@@ -161,5 +164,15 @@ export class MemberController {
 
 
         return await this.memberService.pardon(community, uid)
+    }
+
+    @Get(':uid/show')
+    async communities(@Param('uid') uid: number, @Response() res: ResponseType) {
+        let {take, skip} = res.locals.paginate
+        let user = await this.usersService.findOne(uid)
+
+        res.send(
+            await this.memberService.communitiesFromUser(user, {take, skip})
+        )
     }
 }

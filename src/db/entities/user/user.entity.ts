@@ -7,6 +7,7 @@ import { Avatar } from './avatar.entity';
 import { InventoryItem } from '../shop/inventory-item.entity';
 import { Item } from '../shop/item.entity';
 import { CommunityMember } from '../community/community-member.entity';
+import { Notification } from './notification.entity';
 
 const select = (columns: string[]) => {
     return columns ? { select: columns as any }: {}
@@ -64,6 +65,12 @@ export class User extends AbstractEntity {
     @Column({type: 'text'})
     status: string
 
+    @OneToMany(type => Notification, notification => notification.user)
+    notifications: Notification[]
+
+    @Column({type: 'bigint', default: 0})
+    seenLast: number
+
     isOnline: boolean
 
     /**
@@ -80,6 +87,11 @@ export class User extends AbstractEntity {
     public async giveCoin(amount: number) {
         this.currency += amount
 
+        await this.save()
+    }
+
+    async updateSeen() {
+        this.seenLast = Date.now()
         await this.save()
     }
 
@@ -110,7 +122,7 @@ export class User extends AbstractEntity {
 
     @AfterLoad()
     async checkOnline() {
-        this.isOnline = true
+        this.isOnline = Date.now() - this.seenLast < 60000
     }
 
     /**

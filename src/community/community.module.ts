@@ -12,10 +12,12 @@ import { FileManagerModule } from 'src/file-manager/file-manager.module';
 import { RoleController } from './role/role.controller';
 import { RoleService } from './role/role.service';
 import { PaginationMiddleware } from 'src/middleware/pagination.middleware';
+import { User } from 'src/db/entities/user/user.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Community, CommunityMember, CommunityRole]), FileManagerModule],
-  providers: [CommunityService, MemberService, RoleService],
+  imports: [TypeOrmModule.forFeature([Community, CommunityMember, CommunityRole, User]), FileManagerModule],
+  providers: [CommunityService, MemberService, RoleService, UsersService],
   controllers: [CommunityController, MemberController, RoleController]
 })
 export class CommunityModule implements NestModule{

@@ -10,6 +10,7 @@ import { Config } from 'src/config';
 import { Avatar } from 'src/db/entities/user/avatar.entity';
 import { Item } from 'src/db/entities/shop/item.entity';
 import { InventoryItem } from 'src/db/entities/shop/inventory-item.entity';
+import { Notification } from 'src/db/entities/user/notification.entity';
 
 @Injectable()
 export class AccountService {
@@ -21,7 +22,9 @@ export class AccountService {
         @InjectRepository(Item)
         private itemRepository: Repository<Item>,
         private usersService: UsersService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        @InjectRepository(Notification)
+        private notificationRepository: Repository<Notification>
     ) {}
     
     /**
@@ -93,5 +96,12 @@ export class AccountService {
     async forceLogout(user: User): Promise<User> {
         user.refreshToken()
         return await user.save()
+    }
+
+    async getNotifications(user: User): Promise<Notification[]> {
+        return await this.notificationRepository.createQueryBuilder()
+            .where('userId = :uid', {uid: user.id})
+            .take(5)
+            .getMany()
     }
 }

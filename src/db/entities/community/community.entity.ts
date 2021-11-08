@@ -1,4 +1,4 @@
-import { AfterInsert, BaseEntity, BeforeInsert, Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { AfterInsert, BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { AbstractEntity } from "../abstract-entity";
 import { File } from "../file.entity";
 import { User } from "../user/user.entity";
@@ -49,6 +49,9 @@ export class Community extends BaseEntity {
 
     @OneToMany(type => CommunityThread, thread => thread.community)
     threads: CommunityThread[]
+
+    @CreateDateColumn()
+    created: Date
 
     @BeforeInsert()
     toLowerCase() {

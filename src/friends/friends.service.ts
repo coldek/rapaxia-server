@@ -111,6 +111,8 @@ export class FriendsService {
         let raw = await this.friendsRepository.createQueryBuilder('friend')
             .leftJoinAndSelect('friend.sender', 'sender')
             .leftJoinAndSelect('friend.receiver', 'receiver')
+            .leftJoinAndSelect('sender.avatar', 'senderAvatar')
+            .leftJoinAndSelect('receiver.avatar', 'receiverAvatar')
             .where(new Brackets(qb => {
                 qb.where('friend.senderId = :uid', {uid: user.id})
                 .orWhere('friend.receiverId = :uid')

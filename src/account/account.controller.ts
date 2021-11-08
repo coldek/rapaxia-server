@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request, Get, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { IsStrict } from 'src/middleware/is-strict.middleware';
 import { LoginDTO, RegisterDTO } from 'src/users/dto/users.dto';
@@ -43,5 +43,13 @@ export class AccountController {
     @IsStrict()
     async logout(@Request() {user}) {
         return await this.accountService.forceLogout(user)
+    }
+
+    @Get('/pull')
+    @IsStrict()
+    async pull(@Req() {user}) {
+        await user.updateSeen()
+
+        return await this.accountService.getNotifications(user)
     }
 }

@@ -22,7 +22,7 @@ import { JwtAuthGuard } from './account/strategies/allow-any-jwt.guard';
       ttl: 60,
       limit: 20
   }), ServeStaticModule.forRoot({
-    rootPath: `${__dirname}/../../public/avatars`,
+    rootPath: `${__dirname}/../../public`,
     serveRoot: `/images`
   }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule, FriendsModule],
   controllers: [],

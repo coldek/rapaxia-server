@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../user/user.entity";
 import { CommunityReply } from "./community-reply.entity";
 import { CommunityRole } from "./community-role.entity";
@@ -9,6 +9,9 @@ import { Community } from "./community.entity";
 export class CommunityMember extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
+
+    @CreateDateColumn()
+    joined: Date
 
     @Column({nullable: true})
     approved: boolean

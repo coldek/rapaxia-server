@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { skip } from 'rxjs';
 import { CommunityMember } from 'src/db/entities/community/community-member.entity';
 import { CommunityRole } from 'src/db/entities/community/community-role.entity';
 import { Community } from 'src/db/entities/community/community.entity';
@@ -139,5 +140,17 @@ export class MemberService {
         return {
             pardoned: true
         }
+    }
+
+    
+    async communitiesFromUser(user: User, options: {take:number, skip:number}): Promise<[CommunityMember[], number]> {
+        return await this.communityMemberRepository.createQueryBuilder('community_member')
+            .innerJoinAndSelect('community_member.community', 'community')
+            .innerJoinAndSelect('community_member.role', 'role')
+            .innerJoinAndSelect('community.image', 'image')
+            .where('userId = :uid', {uid: user.id})
+            .take(options.take)
+            .skip(options.skip)
+            .getManyAndCount()
     }
 }
