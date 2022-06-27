@@ -10,7 +10,7 @@ import { CommunityMember } from '../community/community-member.entity';
 import { Notification } from './notification.entity';
 
 const select = (columns: string[]) => {
-    return columns ? { select: columns as any }: {}
+    return columns ? { select: columns as any } : {}
 }
 
 export enum Role {
@@ -24,19 +24,19 @@ export enum Role {
 
 @Entity()
 export class User extends AbstractEntity {
-    @Column({unique: true})
+    @Column({ unique: true })
     username: string
 
-    @Column({unique: true, nullable: true, select: false})
+    @Column({ unique: true, nullable: true, select: false })
     email: string
 
-    @Column({select: false})
+    @Column({ select: false })
     password: string
 
-    @Column({unique: true, nullable: true, select: false})
+    @Column({ unique: true, nullable: true, select: false })
     token: string
 
-    @Column({default: 0, select: false})
+    @Column({ default: 0, select: false })
     currency: number
 
     @OneToOne(type => Avatar, avatar => avatar.user, {
@@ -47,10 +47,10 @@ export class User extends AbstractEntity {
     @OneToMany(type => Comment, comment => comment.author)
     comments: Comment[]
 
-    @Column({default: false})
+    @Column({ default: false })
     beta: boolean
 
-    @Column({type: 'enum', enum: Role, default: Role.Guest})
+    @Column({ type: 'enum', enum: Role, default: Role.Guest })
     role: Role
 
     @OneToMany(type => InventoryItem, inventoryItem => inventoryItem.user)
@@ -59,16 +59,16 @@ export class User extends AbstractEntity {
     @OneToMany(type => CommunityMember, member => member.user)
     communities: CommunityMember[]
 
-    @Column({type: 'text'})
+    @Column({ type: 'text', nullable: true })
     bio: string
 
-    @Column({type: 'text'})
+    @Column({ type: 'text', nullable: true })
     status: string
 
     @OneToMany(type => Notification, notification => notification.user)
     notifications: Notification[]
 
-    @Column({type: 'bigint', default: 0})
+    @Column({ type: 'bigint', default: 0 })
     seenLast: number
 
     isOnline: boolean
@@ -101,14 +101,14 @@ export class User extends AbstractEntity {
      * @param gift - Is a gift?
      * @returns 
      */
-    public async giveItem(item: Item, gift:boolean = false): Promise<InventoryItem> {
+    public async giveItem(item: Item, gift: boolean = false): Promise<InventoryItem> {
         let inventoryItem = new InventoryItem()
 
         inventoryItem.item = item
         inventoryItem.user = this
 
         // if it isn't a gift, take away currency
-        if(!gift) {
+        if (!gift) {
             await this.giveCoin(item.price * -1)
         }
 

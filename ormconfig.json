@@ -1,13 +1,17 @@
 {
-    "type": "mysql",
+    "type": "postgres",
     "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "",
+    "port": 5432,
+    "username": "postgres",
+    "password": "simples",
     "database": "rapaxia",
-    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "entities": [
+        "dist/**/*.entity{.ts,.js}"
+    ],
     "mirgationsTableNam": "custom_migration_table",
-    "migrations": ["dist/migration/*.js"],
+    "migrations": [
+        "dist/migration/*.js"
+    ],
     "synchronize": false,
     "cli": {
         "migrationsDir": "migration/"
