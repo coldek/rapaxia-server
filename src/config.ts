@@ -1,12 +1,62 @@
 export const Config = {
-    secretKey: '99R7yIssZSd9Kkt0UefV',
+    secretKey: `-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----`,
     defaultExpire: '1d',
     cdn: {
         pub: '4a5357b15f04237f571b',
         secret: 'a4d0212c585a95f386ac'
     },
     directories: {
-        root: `C:\\Users\\dukei\\Desktop\\Rapaxia\\server\\`,
+        root: `C:\\Users\\dukei\\Desktop\\Rapaxia\\rapaxia-server\\`,
         render: `avatar\\render\\render.py`,
         body: `public\\avatars\\body\\`,
         headshots: `public\\avatars\\headshots\\`,

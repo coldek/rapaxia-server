@@ -13,9 +13,10 @@ import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { Notification } from 'src/db/entities/user/notification.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Avatar, Item, InventoryItem]), PassportModule, ConfigModule,
+  imports: [TypeOrmModule.forFeature([User, Avatar, Item, InventoryItem, Notification]), PassportModule, ConfigModule,
   JwtModule.register({
     secret: Config.secretKey,
     signOptions: {}

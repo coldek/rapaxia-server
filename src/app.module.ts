@@ -8,26 +8,33 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { AvatarModule } from './avatar/avatar.module';
 import { ShopModule } from './shop/shop.module';
 import { DbModule } from './db/db.module';
-import { ForumModule } from './forum/forum.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, Reflector } from '@nestjs/core';
 import { RolesGuard } from './account/strategies/roles.guard';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { FileManagerModule } from './file-manager/file-manager.module';
+import { CommunityModule } from './community/community.module';
+import { FriendsModule } from './friends/friends.module';
+import { JwtAuthGuard } from './account/strategies/allow-any-jwt.guard';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
     ThrottlerModule.forRoot({
-      ttl: 5,
+      ttl: 60,
       limit: 20
   }), ServeStaticModule.forRoot({
-    rootPath: `${__dirname}/../../public/avatars`,
+    rootPath: `${__dirname}/../../public`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, ForumModule, HttpModule, FileManagerModule],
+  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule, FriendsModule],
   controllers: [],
   providers: [
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard
+    },
+    {
+      provide: APP_GUARD,
+      useFactory: ref => new JwtAuthGuard(ref),
+      inject: [Reflector]
     }
   ],
 })

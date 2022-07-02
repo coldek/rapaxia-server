@@ -84,6 +84,8 @@ def focus(full=True):
     else:
         bpy.data.objects['Head'].select_set(True)
     bpy.ops.view3d.camera_to_view_selected()
+    if not full:
+        bpy.data.cameras['Camera'].lens = 65
 
 
 def resolution(x, y):
