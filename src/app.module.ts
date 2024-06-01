@@ -15,6 +15,7 @@ import { FileManagerModule } from './file-manager/file-manager.module';
 import { CommunityModule } from './community/community.module';
 import { FriendsModule } from './friends/friends.module';
 import { JwtAuthGuard } from './account/strategies/allow-any-jwt.guard';
+import { ForumModule } from './forum/forum.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AccountModule,
@@ -24,7 +25,7 @@ import { JwtAuthGuard } from './account/strategies/allow-any-jwt.guard';
   }), ServeStaticModule.forRoot({
     rootPath: `${__dirname}/../../public`,
     serveRoot: `/images`
-  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule, FriendsModule],
+  }), AvatarModule, ShopModule, DbModule, HttpModule, FileManagerModule, CommunityModule, FriendsModule, ForumModule],
   controllers: [],
   providers: [
     {

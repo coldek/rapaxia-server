@@ -11,8 +11,8 @@ import math
 import sys
 import json
 # Helper
-dir_path = os.path.dirname(os.path.realpath(__file__))+'\\'
-dir_path_public = dir_path+'..\\..\\public\\avatars\\'
+dir_path = os.path.dirname(os.path.realpath(__file__))+'/'
+dir_path_public = os.path.normpath(dir_path + "../../public/avatars/")
 # Get JSON from commandline
 data = json.loads(sys.argv[-1])
 
@@ -53,7 +53,7 @@ def colors():
 
 
 def texture(material, type, image):
-    path = dir_path+'..\\shop\\'+type+'\\'+image+'.png'
+    path = os.path.normpath(dir_path + "/shop/"+type+"/"+image+".png")
     bpy.data.materials[material].node_tree.nodes.get(
         'Image Texture').image = load(path)
 
@@ -100,12 +100,12 @@ def export(location):
     resolution(500, 500)
     # Full body
     focus()
-    scene.render.filepath = dir_path_public+'body\\'+location
+    scene.render.filepath = os.path.normpath(dir_path_public+"/body/"+location)
     bpy.ops.render.render(write_still=True)
 
     # Headshot
     focus(False)
-    scene.render.filepath = dir_path_public+'headshots\\'+location
+    scene.render.filepath = os.path.normpath(dir_path_public+"/headshots/"+location)
     bpy.ops.render.render(write_still=True)
 
 

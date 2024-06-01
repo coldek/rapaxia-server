@@ -8,6 +8,8 @@ import { InventoryItem } from '../shop/inventory-item.entity';
 import { Item } from '../shop/item.entity';
 import { CommunityMember } from '../community/community-member.entity';
 import { Notification } from './notification.entity';
+import { ForumThread } from '../forum/forum-thread.entity';
+import { ForumReply } from '../forum/forum-reply.entity';
 
 const select = (columns: string[]) => {
     return columns ? { select: columns as any } : {}
@@ -70,6 +72,12 @@ export class User extends AbstractEntity {
 
     @Column({ type: 'bigint', default: 0 })
     seenLast: number
+
+    @OneToMany(type => ForumThread, thread => thread.author)
+    threads: ForumThread[]
+
+    @OneToMany(type => ForumReply, reply => reply.author)
+    replies: ForumReply[]
 
     isOnline: boolean
 

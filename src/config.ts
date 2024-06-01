@@ -1,3 +1,5 @@
+const path = require("path")
+
 export const Config = {
     secretKey: `-----BEGIN RSA PRIVATE KEY-----
 MIIJKAIBAAKCAgEA4eJzG5QY3ia4rZh7PeeDgrb7iyNVegEtAap3cjMchWbnQFDG
@@ -56,10 +58,10 @@ LJxuKLEQg4FaBuu7mb3uotk+5UaVMwoDsNF2e+FA4v2tcZ+YBTzsWnYTbIU=
         secret: 'a4d0212c585a95f386ac'
     },
     directories: {
-        root: `C:\\Users\\dukei\\Desktop\\Rapaxia\\rapaxia-server\\`,
-        render: `avatar\\render\\render.py`,
-        body: `public\\avatars\\body\\`,
-        headshots: `public\\avatars\\headshots\\`,
-        imageServer: 'public\\'
+        root: __dirname + "/../../",
+        render: "/avatar/render/render.py",
+        body: "/public/avatars/body",
+        headshots: "/public/avatars/headshots",
+        imageServer: "/public"
     }
 }

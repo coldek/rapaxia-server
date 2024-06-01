@@ -8,6 +8,8 @@ import { Config } from "src/config";
 import { Item } from "../shop/item.entity";
 import internal = require("stream");
 
+const path = require("path")
+
 // Used for colors
 export interface Colors {
     head: string
@@ -63,15 +65,15 @@ export class Avatar extends AbstractEntity {
     public async render() {
         // Delete previous files of render
         try {
-            await unlinkSync(`${Config.directories.root+Config.directories.body+this.cache}.png`)
-            await unlinkSync(`${Config.directories.root+Config.directories.headshots+this.cache}.png`)
+            await unlinkSync(path.resolve(Config.directories.root, Config.directories.body+this.cache+'.png'))
+            await unlinkSync(path.resolve(Config.directories.root, Config.directories.headshots+this.cache+'.png'))
         } catch (err) { }
         
         // Generate new cache
         this.cache = crypto.randomBytes(20).toString('hex')
 
         // Directory of renderer from config file
-        let dir = `${Config.directories.root+Config.directories.render}`
+        let dir = path.resolve(Config.directories.root + Config.directories.render)
 
         // If this.colors is not initialized just do the default colors.
         let {head, left_arm, left_leg, right_arm, right_leg, torso} = (this.colors === undefined) ? defaultColors: this.colors
